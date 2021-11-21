@@ -1,6 +1,6 @@
-use anchor_lang::{prelude::*, solana_program::system_program};
+use anchor_lang::{prelude::*};
 use std::str::from_utf8;
-use std::time::{Duration, SystemTime};
+use std::time::{ SystemTime};
 
 
 declare_id!("GeSn3iiJSfg9R4JfHkL43YPFK2eBg2VSwaBLdTxx6aUT");
@@ -15,15 +15,14 @@ pub mod test {
     }
 
     pub fn send_log(ctx: Context<MakeLogs>,
-    new_log:Vec<u8>)->ProgramResult{
-        let now = SystemTime::now();
-        let log = from_utf8(&new_log).map_err(|err| {
+    data:Vec<u8>)->ProgramResult{
+        let log = from_utf8(&data).map_err(|err| {
             msg!("Invalid UTF-8, from byte {}", err.valid_up_to());
             ProgramError::InvalidInstructionData
         })?;
-        msg!("Log (len {}): {:?} at {:?}", log.len(), log, now);
+        msg!("Log {} ",  log);
         let test_acc =&mut ctx.accounts.test_account;
-        test_acc.lastest_payload=format!("{} at{:?}",String::from(log),now);
+        test_acc.lastest_payload = format!("{}",String::from(log));
         Ok(())
     }
 }
