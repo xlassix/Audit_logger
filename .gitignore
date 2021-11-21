@@ -9,3 +9,4 @@ deploy.js
 app
 deploy/solana-config.json
 testx.js
+client.js
